@@ -4,63 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2.3</title>
-    <style>
-      h3 {
-        margin: 0;
-        padding-bottom: 0.3em;
-        padding-right: 20px;
-        font-size: 1.1em;
-      }
-
-      p {
-        margin: 0;
-        padding: 0 0 0.5em;
-      }
-
-      .pane {
-        background: #edf5e1;
-        padding: 10px 20px 10px;
-        border-top: solid 2px #c4df9b;
-        position: relative;
-      }
-
-      .remove-button {
-        position: absolute;
-        font-size: 110%;
-        top: 0;
-        color: darkred;
-        right: 10px;
-        display: block;
-        width: 24px;
-        height: 24px;
-        border: none;
-        background: transparent;
-        cursor: pointer;
-      }
-
-      .tree span:hover {
-        font-weight: bold;
-      }
-
-      .tree span {
-        cursor: pointer;
-      }
-
-      table {
-        border-collapse: collapse;
-      }
-      th,
-      td {
-        border: 1px solid black;
-        padding: 4px;
-      }
-      th {
-        cursor: pointer;
-      }
-      th:hover {
-        background: yellow;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div id="container">
@@ -169,70 +113,6 @@
       </tbody>
     </table>
 
-    <script>
-      //task 1
-      container.onclick = function (event) {
-        if (event.target.className != "remove-button") return;
-
-        let pane = event.target.closest(".pane");
-        pane.remove();
-      };
-
-      //task 2
-      for (let li of tree.querySelectorAll("li")) {
-        let span = document.createElement("span");
-        li.prepend(span);
-        span.append(span.nextSibling);
-      }
-
-      tree.onclick = function (event) {
-        if (event.target.tagName != "SPAN") {
-          return;
-        }
-
-        let childrenContainer = event.target.parentNode.querySelector("ul");
-        if (!childrenContainer) return;
-
-        childrenContainer.hidden = !childrenContainer.hidden;
-      };
-
-      //task 3
-      grid.onclick = function (e) {
-        if (e.target.tagName != "TH") return;
-
-        let th = e.target;
-
-        sortGrid(th.cellIndex, th.dataset.type);
-      };
-
-      function sortGrid(colNum, type) {
-        let tbody = grid.querySelector("tbody");
-
-        let rowsArray = Array.from(tbody.rows);
-
-        let compare;
-
-        switch (type) {
-          case "number":
-            compare = function (rowA, rowB) {
-              return (
-                rowA.cells[colNum].innerHTML - rowB.cells[colNum].innerHTML
-              );
-            };
-            break;
-          case "string":
-            compare = function (rowA, rowB) {
-              return rowA.cells[colNum].innerHTML > rowB.cells[colNum].innerHTML
-                ? 1
-                : -1;
-            };
-            break;
-        }
-
-        rowsArray.sort(compare);
-
-        tbody.append(...rowsArray);
-      }
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
